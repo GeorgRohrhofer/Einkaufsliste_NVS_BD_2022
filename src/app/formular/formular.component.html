@@ -1,0 +1,6 @@
+<div> 
+    <label>Neuer Eintrag: </label>
+    <input [(ngModel)]= "newEntry" placeholder="what to buy?"> <input [(ngModel)]= "newPrice" placeholder="what does it cost?">
+    <button (click)="addTodo()" class="btn">Insert</button><br/>
+    {{ msg }} 
+   </div>

@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+li{
+    margin-top: 10px;
+}
+
+i{
+    display: inline-block;
+    width: 20%;
+}
+
+button{
+    display: inline-block;
+}

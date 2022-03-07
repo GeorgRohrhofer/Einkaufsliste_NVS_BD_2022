@@ -1,0 +1,5 @@
+<ul style="list-style: none;"><li><i>Produkt</i><i>Preis</i></li></ul>
+
+<ul>
+    <li *ngFor="let element of elements"><i>{{element.product}}</i> <i>{{element.price}}€</i> <button class="btn btn-danger" (click)="deleteTodo(element.id)">X</button></li>
+</ul>
