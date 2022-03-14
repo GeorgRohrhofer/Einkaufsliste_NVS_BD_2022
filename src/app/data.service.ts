@@ -16,9 +16,11 @@ export class DataService {
     public subject = new Subject<void>();
     uri= 'http://localhost:2403/einkaufsliste';
 
+    e: Element[] = [];
+
     newEntry: Element | undefined;
     getTodos(): Observable<Element[]>{
-       return this.http.get<Element[]>(this.uri);// Observable
+       return this.http.get<Element[]>(this.uri);// Observable 
    }
 /*
     TODOS: Element[] = [ { id: 0, product: 'Essen', price: 10 } ];
@@ -42,7 +44,7 @@ export class DataService {
  */
 
     addTodo(product: string, price: number) : Observable<Element>{
-      return this.http.post<Element>(this.uri, {product:product, price:price}, httpOptions)
+      return this.http.post<Element>(this.uri, {product:product, price:price, done:false}, httpOptions)
         
     }
 
@@ -54,4 +56,14 @@ export class DataService {
       return this.subject.asObservable();
     }
 
+    getTodo(id:number): Observable<Element[]>{
+      return this.http.get<Element[]>(this.uri + "/" + id);// Observable  
+    }
+
+    check(id: number): Observable<Element>{
+      this.getTodo(id).subscribe((data:Element[])=> this.e = data);
+      let element = this.e[0];
+      console.log("Check")
+      return this.http.post<Element>(this.uri, {product:element.product, price:element.price, done:true}, httpOptions)
+    }
 }
