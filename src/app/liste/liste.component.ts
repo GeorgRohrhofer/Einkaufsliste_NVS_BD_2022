@@ -17,6 +17,6 @@ export class ListeComponent implements OnInit {
 }
 
  deleteTodo(id:number){
-     this.ds.deleteTodo(id).subscribe(() => {this.ds.getTodos().subscribe((data: Element[])=> this.elements = data)});
+     this.ds.deleteTodo(id).subscribe(() => {this.ds.getTodos().subscribe((data: Element[])=> this.elements = data);this.ds.subject.next();})
  }
 }

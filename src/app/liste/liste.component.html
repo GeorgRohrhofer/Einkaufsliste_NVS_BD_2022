@@ -1,5 +1,5 @@
-<ul style="list-style: none;"><li><i>Produkt</i><i>Preis</i></li></ul>
+<ul style="list-style: none;"><li><i>Produkt</i><i>Preis</i><i id="done">erledigt</i></li></ul>
 
 <ul>
-    <li *ngFor="let element of elements"><i>{{element.product}}</i> <i>{{element.price}}€</i> <button class="btn btn-danger" (click)="deleteTodo(element.id)">X</button></li>
+    <li *ngFor="let element of elements"><i>{{element.product}}</i> <i>{{element.price}}€</i> <input type="checkbox"><button class="btn btn-danger" (click)="deleteTodo(element.id)">X</button></li>
 </ul>

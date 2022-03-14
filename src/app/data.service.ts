@@ -13,7 +13,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class DataService {
     constructor(private http: HttpClient) { }
-    private subject = new Subject<void>();
+    public subject = new Subject<void>();
     uri= 'http://localhost:2403/einkaufsliste';
 
     newEntry: Element | undefined;
@@ -42,15 +42,12 @@ export class DataService {
  */
 
     addTodo(product: string, price: number) : Observable<Element>{
-      this.subject.next();
-        return this.http.post<Element>(this.uri, {product:product, price:price}, httpOptions)
+      return this.http.post<Element>(this.uri, {product:product, price:price}, httpOptions)
         
     }
 
     deleteTodo(id: number ): Observable<unknown>{
-      this.subject.next();
-      return this.http.delete<Element>(this.uri + '/'+ id, httpOptions)
-      
+      return this.http.delete<Element>(this.uri + '/'+ id, httpOptions);
     }
 
     getSubject(): Observable<void>{
