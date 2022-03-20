@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
       {
         next: () => { this.sum = 0;
                       this.dataService.getTodos().subscribe((data: Element[])=> this.count = data.length)
-                      this.dataService.getTodos().subscribe((data: Element[])=> data.forEach(element => this.sum += element.price))
+                      this.dataService.getTodos().subscribe((data: Element[])=> data.forEach(element => {if(element.done == false){this.sum += element.price}}))
                     }
       }
     )

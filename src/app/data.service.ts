@@ -16,7 +16,7 @@ export class DataService {
     public subject = new Subject<void>();
     uri= 'http://localhost:2403/einkaufsliste';
 
-    e: Element[] = [];
+    e: Element | undefined;
 
     newEntry: Element | undefined;
     getTodos(): Observable<Element[]>{
@@ -56,14 +56,21 @@ export class DataService {
       return this.subject.asObservable();
     }
 
-    getTodo(id:number): Observable<Element[]>{
-      return this.http.get<Element[]>(this.uri + "/" + id);// Observable  
+    getTodo(id:number): Observable<Element>{
+      return this.http.get<Element>(this.uri + "/" + id);// Observable  
     }
 
-    check(id: number): Observable<Element>{
-      this.getTodo(id).subscribe((data:Element[])=> this.e = data);
-      let element = this.e[0];
-      console.log("Check")
-      return this.http.post<Element>(this.uri, {product:element.product, price:element.price, done:true}, httpOptions)
+    check(id: number){
+      this.getTodo(id).subscribe((data:Element)=> this.e = data);
+      if(this.e != undefined){
+        console.log(this.e.product);
+        if(this.e.done == true){
+          return this.http.put<Element>(this.uri + "/" + this.e.id, {product:this.e.product, price:this.e.price, done:false}, httpOptions).subscribe(() => this.subject.next());
+        }
+        else{
+          return this.http.put<Element>(this.uri + "/" + this.e.id, {product:this.e.product, price:this.e.price, done:true}, httpOptions).subscribe(() => this.subject.next());
+        }
+      }
+      return null;
     }
 }
